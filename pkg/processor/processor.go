@@ -278,7 +278,7 @@ func (p *Processor) processDataPodEvent(c *v1.Pod) error {
 	name := c.Labels["component"]
 	name = name[14:len(name)]
 
-	p.k8sclient.UpdateVolumeReclaimPolicy(p.clusters[fmt.Sprintf("%s-%s", name, c.ObjectMeta.Namespace)].ESCluster.Spec.Storage.VolumeReclaimPolicy, c.ObjectMeta.Namespace, name)
+	//p.k8sclient.UpdateVolumeReclaimPolicy(p.clusters[fmt.Sprintf("%s-%s", name, c.ObjectMeta.Namespace)].ESCluster.Spec.Storage.VolumeReclaimPolicy, c.ObjectMeta.Namespace, name)
 
 	return nil
 }
