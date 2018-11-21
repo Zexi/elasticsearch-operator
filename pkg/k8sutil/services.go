@@ -111,6 +111,13 @@ func (k *K8sutil) CreateClientService(clusterName, namespace string, nodePort in
 					"component": component,
 					"role":      "client",
 				},
+				Annotations: map[string]string{
+					"service.yunion.io/type":       "elasticsearch",
+					"service.yunion.io/name":       "elasticsearch",
+					"endpoint.yunion.io/name":      "k8s-elasticsearch",
+					"endpoint.yunion.io/interface": "internal",
+					"endpoint.yunion.io/protocol":  "http",
+				},
 			},
 			Spec: v1.ServiceSpec{
 				Selector: map[string]string{

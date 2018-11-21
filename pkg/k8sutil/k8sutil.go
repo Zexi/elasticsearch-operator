@@ -410,8 +410,8 @@ func buildStatefulSet(statefulSetName, clusterName, deploymentType, baseImage, s
 	}
 
 	// Parse CPU / Memory
-	// limitCPU, _ := resource.ParseQuantity(resources.Limits.CPU)
-	// limitMemory, _ := resource.ParseQuantity(resources.Limits.Memory)
+	//limitCPU, _ := resource.ParseQuantity(resources.Limits.CPU)
+	//limitMemory, _ := resource.ParseQuantity(resources.Limits.Memory)
 	requestCPU, _ := resource.ParseQuantity(resources.Requests.CPU)
 	requestMemory, _ := resource.ParseQuantity(resources.Requests.Memory)
 
@@ -470,6 +470,7 @@ func buildStatefulSet(statefulSetName, clusterName, deploymentType, baseImage, s
 						"role":      role,
 						"name":      statefulSetName,
 						"cluster":   clusterName,
+						"lxcfs":     "false",
 					},
 				},
 				Spec: v1.PodSpec{
@@ -518,6 +519,10 @@ func buildStatefulSet(statefulSetName, clusterName, deploymentType, baseImage, s
 								v1.EnvVar{
 									Name:  "CLUSTER_NAME",
 									Value: clusterName,
+								},
+								v1.EnvVar{
+									Name:  "MEMORY_LOCK",
+									Value: "false",
 								},
 								v1.EnvVar{
 									Name:  "NODE_MASTER",
@@ -577,10 +582,10 @@ func buildStatefulSet(statefulSetName, clusterName, deploymentType, baseImage, s
 								},
 							},
 							Resources: v1.ResourceRequirements{
-								// Limits: v1.ResourceList{
-								// 	"cpu":    limitCPU,
-								// 	"memory": limitMemory,
-								// },
+								//Limits: v1.ResourceList{
+								//"cpu":    limitCPU,
+								//"memory": limitMemory,
+								//},
 								Requests: v1.ResourceList{
 									"cpu":    requestCPU,
 									"memory": requestMemory,

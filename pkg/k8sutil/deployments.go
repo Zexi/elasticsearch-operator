@@ -157,6 +157,7 @@ func (k *K8sutil) CreateClientDeployment(baseImage string, replicas *int32, java
 							"role":      role,
 							"name":      deploymentName,
 							"cluster":   clusterName,
+							"lxcfs":     "false",
 						},
 					},
 					Spec: v1.PodSpec{
@@ -185,6 +186,10 @@ func (k *K8sutil) CreateClientDeployment(baseImage string, replicas *int32, java
 									v1.EnvVar{
 										Name:  "CLUSTER_NAME",
 										Value: clusterName,
+									},
+									v1.EnvVar{
+										Name:  "MEMORY_LOCK",
+										Value: "false",
 									},
 									v1.EnvVar{
 										Name:  "NODE_MASTER",
